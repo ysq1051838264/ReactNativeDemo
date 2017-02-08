@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import Util from './app/utils';
 import {
     AppRegistry,
     StyleSheet,
@@ -80,31 +81,29 @@ class ReportActivity extends Component {
     fetchData() {
         list = [];
         this.loadData()
-
-        // if (list.length === 0) {
-        //     NativeModules.ToastCustomAndroid.show("list集合没有值", NativeModules.ToastCustomAndroid.SHORT)
-        //     console.log('ysq打印出来的：list没有值');
-        // }
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <Image source={require('./app/imgs/head.png')} style={styles.head}>
-                    <View style={{flexDirection: 'row', justifyContent: 'flex-end',marginRight:20}}>
+
+                    <View style={{marginRight: 20, flexDirection: 'row', justifyContent: 'flex-end'}}>
                         <Image source={require('./app/imgs/qr_code.png')}
-                               style={{width: 40, height: 40, resizeMode: 'stretch', margin: 5}}>
+                               style={{
+                                   width: 40, height: 40, resizeMode: 'stretch', right: 10,
+                                   margin: 5, position: 'absolute'
+                               }}>
                         </Image>
                     </View>
 
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
                         <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'} }
-                               style={{width: 60, height: 60, marginLeft: 10}}>
+                               style={{width: 60, height: 60,resizeMode: 'stretch', position: 'absolute', left: 10, top: 20}}>
                         </Image>
                         <View style={styles.textCenter}>
-                            <Text style={styles.instructions}>
-                                这是网络图片
-                            </Text>
+                            <Text style={styles.instructions}>这是网络图片</Text>
+                            <Text style={styles.instructions}>2016-11-30 08:52</Text>
                         </View>
                     </View>
                 </Image>
@@ -168,9 +167,12 @@ const styles = StyleSheet.create({
     },
 
     textCenter: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
         height: 60,
+        position: 'absolute',
+        top:25,
+        left: 85,
     },
 
     instructions: {
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
     },
 
     head: {
-        width: 400,
+        width: Util.size.width,
         height: 100,
     },
 
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
     },
 
     bottom: {
-        width: 400,
+        width: Util.size.width,
         height: 60,
     },
 
