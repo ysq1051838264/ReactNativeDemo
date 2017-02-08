@@ -18,7 +18,6 @@ import {
 let list = [];
 
 var {NativeModules} = require('react-native');
-// var { RNTestModules } = require('react-native');
 
 class CustomButton extends React.Component {
     render() {
@@ -37,12 +36,9 @@ class ReportActivity extends Component {
 
     constructor(props) {
         super(props)
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
         this.state = {
             dataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2}),
             pathText: ''
-            // dataSource:ds.cloneWithRows(['yang','shu','quan','yan','Yang'])
         };
     }
 
@@ -50,20 +46,24 @@ class ReportActivity extends Component {
         this.fetchData();
     }
 
-    test2() {
+    loadData() {
         NativeModules.RNTest.measureLayout(100, 100).then(e => {
-            console.log('ysq打印出来的：' + e.relativeX + ':' + e.relativeY + ':' + e.width + ':' + e.height);
+            console.log('ysq打印出来的：' + e.weight + ':' + e.bmi + ':' + e.water + ':' + e.bodyfat);
             this.setState({
-                relativeX: e.relativeX,
-                relativeY: e.relativeY,
-                width: e.width,
-                height: e.height,
+                weight: e.weight,
+                bmi: e.bmi,
+                water: e.water,
+                bodyfat: e.bodyfat,
+                bone: e.bone,
+                protein: e.protein,
             })
 
-            list.push(e.relativeX)
-            list.push(e.relativeY)
-            list.push(e.width)
-            list.push(e.height)
+            list.push(e.weight)
+            list.push(e.bmi)
+            list.push(e.water)
+            list.push(e.bodyfat)
+            list.push(e.bone)
+            list.push(e.protein)
 
             console.log('ysq打印出来的：list的值是' + list);
 
@@ -79,46 +79,74 @@ class ReportActivity extends Component {
     //获取数据
     fetchData() {
         list = [];
-        this.test2()
+        this.loadData()
 
-        if (list.length === 0) {
-            NativeModules.ToastCustomAndroid.show("list集合没有值", NativeModules.ToastCustomAndroid.SHORT)
-            console.log('ysq打印出来的：list没有值');
-        }
+        // if (list.length === 0) {
+        //     NativeModules.ToastCustomAndroid.show("list集合没有值", NativeModules.ToastCustomAndroid.SHORT)
+        //     console.log('ysq打印出来的：list没有值');
+        // }
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-                <Text style={styles.instructions}>
-                    我是 原生项目嵌入的 ReactNative
-                </Text>
+                <Image source={require('./app/imgs/head.png')} style={styles.head}>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end',marginRight:20}}>
+                        <Image source={require('./app/imgs/qr_code.png')}
+                               style={{width: 40, height: 40, resizeMode: 'stretch', margin: 5}}>
+                        </Image>
+                    </View>
 
-                <Image source={require('./app/imgs/avatar_baby.png')} style={styles.thumb}></Image>
+                    <View style={{flexDirection: 'row'}}>
+                        <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'} }
+                               style={{width: 60, height: 60, marginLeft: 10}}>
+                        </Image>
+                        <View style={styles.textCenter}>
+                            <Text style={styles.instructions}>
+                                这是网络图片
+                            </Text>
+                        </View>
+                    </View>
+                </Image>
 
-                <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'} }
-                       style={{width: 400, height: 60}}></Image>
+                <Text style={styles.description}>
+                    神体质,好身材,您值得拥有。GO GO GO!
+                </Text>
 
                 <ListView
                     dataSource={this.state.dataSource}
-                    renderRow={(rowData) => <View style={{flexDirection: 'row'}}>
-                        <Text style={styles.instructions}> if({rowData} === number) hh else ReactNative __ </Text>
-                        <Text >{rowData}</Text>
-                    </View>}
-
-                    // renderRow={(rowData) => <Text>{rowData}</Text>}
+                    renderRow={(rowData) =>
+                        <View style={{flexDirection: 'row', padding: 5}}>
+                            <Image source={require('./app/imgs/unstandard.png')}
+                                   style={{width: 250, height: 25, resizeMode: 'stretch'}}></Image>
+                            <Text style={{
+                                textAlign: 'center',
+                                marginLeft: 5,
+                                textAlignVertical: 'center'
+                            }}>{rowData}</Text>
+                        </View>}
+                    // renderRow={(rowData) =><Text>{rowData}</Text>}
                 />
 
-                <Text style={styles.welcome}>
-                    自定义弹出Toast消息
-                </Text>
-                <CustomButton
-                    text="点击自定义Toast方法"
-                    onPress={() => NativeModules.ToastCustomAndroid.show("我是ToastCustomAndroid弹出消息", NativeModules.ToastCustomAndroid.SHORT)}
-                />
+                <Image source={require('./app/imgs/bottom.png')} style={styles.bottom}>
+                    <View style={{flexDirection: 'row', position: 'absolute'}}>
+                        <Image source={require('./app/imgs/qr_code.png')}
+                               style={{width: 50, height: 55, marginLeft: 40, top: 5}}>
+                        </Image>
+                        <View style={{flexDirection: 'column'}}>
+                            <Text style={styles.bottomText}> 云康宝智能设备</Text>
+                            <Text style={styles.bottomBuyText}> 扫描二维码进行购买备</Text>
+                        </View>
+                    </View>
+                </Image>
+
+                {/*  // <Text style={styles.welcome}>
+                 //     自定义弹出Toast消息
+                 // </Text>*/}
+                {/*<CustomButton*/}
+                {/*text="点击自定义Toast方法"*/}
+                {/*onPress={() => NativeModules.ToastCustomAndroid.show("我是ToastCustomAndroid弹出消息", NativeModules.ToastCustomAndroid.SHORT)}*/}
+                {/*/>*/}
 
             </View>
         );
@@ -133,23 +161,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
+
     welcome: {
         fontSize: 20,
         textAlign: 'center',
-        margin: 10,
     },
+
+    textCenter: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 60,
+    },
+
     instructions: {
         textAlign: 'center',
         color: '#333333',
-        marginBottom: 5,
-    },
-    bigblue: {
-        color: 'blue',
         fontWeight: 'bold',
-        fontSize: 30,
     },
-    red: {
-        color: 'red',
+
+    description: {
+        textAlign: 'center',
+        color: 'blue',
+        top: 10,
+        paddingBottom: 10,
     },
 
     row: {
@@ -159,9 +193,40 @@ const styles = StyleSheet.create({
         backgroundColor: '#F6F6F6',
     },
 
-    thumb: {
-        width: 50,
-        height: 50,
+    head: {
+        width: 400,
+        height: 100,
+    },
+
+    unstandard: {
+        width: 20,
+        height: 20,
+    },
+
+    bottom: {
+        width: 400,
+        height: 60,
+    },
+
+    bottomText: {
+        top: 2,
+        textAlign: 'center',
+        color: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlignVertical: 'center',
+        fontSize: 20,
+        marginLeft: 20,
+    },
+
+    bottomBuyText: {
+        textAlign: 'center',
+        color: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlignVertical: 'center',
+        fontSize: 16,
+        marginLeft: 20,
     },
 
     button: {
