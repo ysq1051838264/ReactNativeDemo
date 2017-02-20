@@ -1,6 +1,7 @@
 # ReactNativeDemo
 Android原生嵌入ReactNative模块Demo
 
+###效果图如下
 ![image](https://github.com/ysq1051838264/ReactNativeDemo/blob/master/1.jpg)
 
 ###安装过程
