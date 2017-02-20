@@ -22,6 +22,6 @@ public class QNUIModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void onGetViewSize(int width, int height) {
-        Log.e("hdr", "拿到视图的宽高: " + width + " " + height);
+        Log.e("ysq", "拿到视图的宽高: " + width + " " + height);
     }
 }

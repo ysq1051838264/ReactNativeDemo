@@ -4,21 +4,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:text="分享"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
     <LinearLayout
         android:id="@+id/bottom_bar"
         android:layout_alignParentBottom="true"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="保存" />
 
         <Button
             android:id="@+id/shareButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="分享" />
 
@@ -28,6 +38,7 @@
     <FrameLayout
         android:id="@+id/reactContainerView"
         android:layout_width="320dp"
+        android:layout_marginTop="45dp"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_bar"
         android:layout_centerHorizontal="true" />

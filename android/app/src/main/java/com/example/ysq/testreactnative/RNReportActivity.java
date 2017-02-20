@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import com.facebook.react.LifecycleState;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
-import com.facebook.react.common.LifecycleState;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 
@@ -52,7 +53,7 @@ public class RNReportActivity extends Activity implements DefaultHardwareBackBtn
         super.onPause();
 
         if (mReactInstanceManager != null) {
-            mReactInstanceManager.onHostPause(this);
+            mReactInstanceManager.onPause();
         }
     }
 
@@ -61,7 +62,7 @@ public class RNReportActivity extends Activity implements DefaultHardwareBackBtn
         super.onResume();
 
         if (mReactInstanceManager != null) {
-            mReactInstanceManager.onHostResume(this, this);
+            mReactInstanceManager.onResume(this, this);
         }
     }
 
